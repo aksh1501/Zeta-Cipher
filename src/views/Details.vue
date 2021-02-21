@@ -1,26 +1,25 @@
 <template>
   <div class="home">
-    <Header/>
-    <Dashboard :showProdForm="showProdForm" :toggleShowForm="toggleShowForm"/>
+    <Header />
+    <ProductDetails :showProdForm="showProdForm" :toggleShowForm="toggleShowForm"/>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { Component, Vue } from 'vue-property-decorator'
-import Dashboard from '@/components/Dashboard.vue' // @ is an alias to /src
+import ProductDetails from '@/components/ProductDetails.vue' // @ is an alias to /src
 import Header from '@/components/Header.vue'
 
 @Component({
   components: {
-    Dashboard,
+    ProductDetails,
     Header
   }
 })
-export default class Home extends Vue {
+export default class Details extends Vue {
   showProdForm=false
   toggleShowForm () {
     this.showProdForm = !this.showProdForm
   }
 }
-
 </script>
