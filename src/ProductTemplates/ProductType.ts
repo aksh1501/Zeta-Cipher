@@ -27,7 +27,4 @@ export type jsonData = {
   cardNetworkLogos:cardNetworkLogos
 };
 
-export const aavAlgorithms = ['', 'SPA with CVC2', 'SPA with CVC2(without MerchantName hash)', 'SPA with HMAC', 'SPA with HMAC(without MerchantName hash)'];
-
-export const cardNetworkOptions = ["visa", "mastercard", "rupay", "amex", "maestro"];
 

@@ -78,7 +78,7 @@
             <li>Edit the ProductName: {{ product.name }}</li>
           </ul>
 
-          <form class="new-product-form" @submit.prevent="onSubmit(product)">
+          <form class="new-product-form" @submit.prevent="onSubmit(product)" autocomplete="off">
             <div class="error" v-if="errors.length">
               <strong>Please correct the following error(s):</strong>
               <ul>

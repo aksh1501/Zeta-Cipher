@@ -33,7 +33,7 @@
         <h3>Enter the Basic Details about your product</h3>
       </div>
 
-      <form class='new-product-form' @submit.prevent='onSubmit'>
+      <form class='new-product-form' @submit.prevent='onSubmit' autocomplete="off">
         <div class='error' v-if='errors.length'>
           <b>Please correct the following error(s):</b>
           <ul>
