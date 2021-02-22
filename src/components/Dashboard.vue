@@ -124,6 +124,7 @@ import { aavAlgorithms } from '@/Constants/Constants'
 export default class Dashboard extends Vue {
   @Prop() showProdForm!: boolean
   @Prop() toggleShowForm!: Function
+  @Prop() productInfo!: jsonData
   errors=Array<string>()
   prodCount=0
   aavAlgos=aavAlgorithms
@@ -140,18 +141,6 @@ export default class Dashboard extends Vue {
     description: '',
     version: '',
     authPlans: ['swipe_to_pay', 'super_pin']
-  }
-
-  get productInfo (): jsonData {
-    if (localStorage.getItem('storedProducts')) {
-      return JSON.parse(localStorage.getItem('storedProducts'))
-    } else {
-      localStorage.setItem(
-        'storedProducts',
-        JSON.stringify(this.productFromJson)
-      )
-      return this.productFromJson
-    }
   }
 
   get productList (): Array<Product> {
@@ -230,7 +219,7 @@ export default class Dashboard extends Vue {
       this.newProduct.description &&
       this.newProduct.version
     ) {
-      console.log('hi if')
+      // console.log('hi if')
       this.prodCount++
       this.updateProductList(this.newProduct)
       this.newProduct = {
@@ -311,25 +300,6 @@ export default class Dashboard extends Vue {
   text-align: left;
 }
 
-.heading {
-  color: white;
-  background-color: red;
-  opacity: 0.7;
-  list-style-type: none;
-  margin: 0px 0px 10px 0px;
-}
-
-.page {
-  color: black;
-  font-family: 'Nunito Sans', sans-serif;
-  font-size: '4 rem';
-}
-
-.logo {
-  margin-right: 10px;
-  width: 80px;
-  vertical-align: middle;
-}
 .product {
   padding-left: 20px;
   list-style-type: none;
