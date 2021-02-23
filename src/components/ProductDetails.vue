@@ -1,47 +1,40 @@
 <template>
   <div>
     <div v-if="!showProdForm">
-      <ul class="product">
-        <li
+      <div class="product">
+        <div
           v-for="product in productList"
           :key="product.id"
-          class="product-text"
+          class="product-text" v-show="productID == product.id"
         >
-          <strong v-if="productID == product.id">
-            {{ product.name }}
+          <strong class="product-header">
+           {{ product.name }}
           </strong>
-        </li>
-        <li class='create-text'>These are product details of {{ productID }}</li>
-        <li>
-          <button @click="toggleShowForm" class="create-product-button">
-            + Edit Product
-          </button>
-        </li>
-      </ul>
+        <div class='create-text'>These are product details of {{ productID }}</div>
+        </div>
+        <button @click="toggleShowForm" class="create-product-button">
+          + Edit Product
+        </button>
+      </div>
       <ul class="all-product-container">
         <li v-for="product in productList" :key="product.id">
           <div v-if="product.id == productID">
             <h1 class="basic-info">Basic Information</h1>
             <br />
-            <br />
             <span class="product-attribute">Product Name : </span>
             <span class="product-info">{{ product.name }}</span>
-            <br />
             <br />
             <br />
             <span class="product-attribute">Product ID : </span>
             <span class="product-info">{{ product.id }}</span>
             <br />
             <br />
-            <br />
             <span class="product-attribute">Product Description : </span>
             <span class="product-info">{{ product.description }}</span>
             <br />
             <br />
-            <br />
             <span class="product-attribute">BIN Number : </span>
             <span class="product-info">{{ product.bin }}</span>
-            <br />
             <br />
             <br />
             <span class="product-attribute">Connector URL : </span>
@@ -52,10 +45,8 @@
             >
             <br />
             <br />
-            <br />
             <span class="product-attribute">Card Network : </span>
             <span class="product-info">{{ product.cardNetwork }}</span>
-            <br />
             <br />
             <br />
             <span class="product-attribute">Protocol Version : </span>
@@ -73,10 +64,10 @@
     <div v-if="showProdForm">
       <div v-for="product in productList" :key="product.id">
         <div v-if="product.id == productID">
-          <ul class="product">
-            <li class="product-text"><strong>Edit Product</strong></li>
-            <li class='create-text'>Edit the ProductName: {{ product.name }}</li>
-          </ul>
+          <div class="product-form">
+            <div class="product-text"><strong class="product-header">Edit Product</strong></div>
+            <div class='create-text'>Edit the ProductName: {{ product.name }}</div>
+          </div>
 
           <form class="new-product-form" @submit.prevent="onSubmit(product)" autocomplete="off">
             <div class="error" v-if="errors.length">
@@ -294,22 +285,28 @@ export default class ProductDetails extends Vue {
   text-align: left;
 }
 
+.product-header{
+  font-weight: 500;
+}
+
 .product {
-  padding-left: 10px;
-  list-style-type: none;
   background-color: #4d4ddc;
-  overflow: hidden;
-  margin-left: 5px;
-  margin-top: 10px;
-  margin-right: 5px;
-  margin-bottom: 0px;
-  opacity: 0.7;
+  margin: 10px 5px 0px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   color: white;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  padding: 20px;
+}
+
+.product-form {
+  background-color: #4d4ddc;
+  margin: 10px 5px 0px;
+  color: white;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  padding: 20px;
 }
 
 .create-text{
@@ -317,21 +314,23 @@ export default class ProductDetails extends Vue {
 }
 
 .product-text {
-  color: red;
+  color: white;
   font-family: 'Fira Sans', sans-serif;
   font-size: 40px;
-  display: block;
+
 }
 
 .create-product-button {
-  float: right;
   color: white;
   height: 40px;
-  background-color: rgb(55, 230, 128);
+  border-radius: 4px;
+  border: 1px solid #fff;
+  padding-right: 20px;
   margin-right: 20px;
   margin-left: 10px;
   margin-bottom: 10px;
-  padding-right: 20px;
+  align-self: flex-end;
+  background: transparent;
 }
 
 .all-product-container {
@@ -349,6 +348,7 @@ export default class ProductDetails extends Vue {
 
 .basic-info {
   color: purple;
+  margin: 0px;
 }
 
 .product-attribute {
@@ -359,13 +359,10 @@ export default class ProductDetails extends Vue {
 .product-info {
   font-size: 2em;
   padding-left: 10px;
-  /* font-size: 2rem; */
-  margin-left: 30px;
-  background-color: lightpink;
 }
 
 .new-product-form {
-  padding: 20px;
+  padding: 10px;
   margin-left: 5px;
   margin-right: 5px;
   border: 2px solid #d8d8d8;
@@ -388,10 +385,12 @@ input {
 }
 
 .back-button {
-  width: 80px;
-  background-color: lightgreen;
+  width: 120px;
+  background: transparent;
   margin: 10px;
   padding: 10px;
+  height:50px;
+  border-radius: 12px;
 }
 
 </style>
