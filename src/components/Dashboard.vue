@@ -17,7 +17,7 @@
           v-for='product in productList'
           :key='product.name'
           :id='product.name' :data-product-id="product.id"
-          class='product-container'
+          class='product-container' @click="handleClick(product.id)"
         ></li>
       </ul>
     </div>
@@ -182,8 +182,8 @@ export default class Dashboard extends Vue {
         const div = document.createElement('div')
         const enclosingDiv = document.createElement('div')
         const h1 = document.createElement('h2')
-        const h2 = document.createElement('h3')
-        const h3 = document.createElement('h3')
+        const h2 = document.createElement('h4')
+        const h3 = document.createElement('h4')
         h2.setAttribute('style', 'background-color:lightgrey; width:120px;padding:5px;')
         h1.setAttribute('style', 'padding:5px;')
         h3.setAttribute('style', 'padding:5px;')
@@ -200,7 +200,7 @@ export default class Dashboard extends Vue {
         li.append(div)
         div.append(enclosingDiv)
         const img = document.createElement('img')
-        img.style = 'width:auto;height:80px;padding:10px;'
+        img.style = 'width:120px;height:80px;padding:10px;'
         img.src = URL.createObjectURL(data)
         enclosingDiv.append(img)
         div.append(h1)
@@ -276,10 +276,7 @@ export default class Dashboard extends Vue {
     location.reload()
   }
 
-  handleClick (e: Event) {
-    console.log(e)
-    const li = e.target.closest('.product-container')
-    const prodID = li.getAttribute('data-product-id')
+  handleClick (prodID: number) {
     this.$router.push({ name: 'details', params: { Pid: prodID } })
   }
 
@@ -288,8 +285,6 @@ export default class Dashboard extends Vue {
     for (let iter = 0; iter < this.productList.length; iter++) {
       this.createImage(this.productList[iter])
     }
-    const allProductContainer = document.getElementsByClassName('all-product-container')[0]
-    allProductContainer.addEventListener('click', this.handleClick)
   }
 }
 </script>
@@ -360,7 +355,7 @@ export default class Dashboard extends Vue {
 }
 
 .product-container:hover {
-  background-color: rgb(199, 240, 104);
+  background-color: rgb(215, 245, 250);
 }
 
 .all-product-container {
@@ -408,6 +403,10 @@ input {
   background-color: lightblue;
   margin: 10px;
   padding: 10px;
+}
+
+input, select, textarea{
+  width: 450px;
 }
 
 </style>
