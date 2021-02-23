@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     <Header/>
     <Dashboard :showProdForm="showProdForm" :toggleShowForm="toggleShowForm" :productInfo="productInfo"/>
   </div>
@@ -9,7 +9,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Dashboard from '@/components/Dashboard.vue' // @ is an alias to /src
 import Header from '@/components/Header.vue'
-import { Product, cardNetworkInfo, cardNetworkLogos, jsonData } from '@/ProductTemplates/ProductType'
+import { jsonData } from '@/ProductTemplates/ProductType'
 
 @Component({
   components: {

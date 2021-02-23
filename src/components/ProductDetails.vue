@@ -11,12 +11,12 @@
             {{ product.name }}
           </strong>
         </li>
+        <li class='create-text'>These are product details of {{ productID }}</li>
         <li>
           <button @click="toggleShowForm" class="create-product-button">
             + Edit Product
           </button>
         </li>
-        <li>These are product details of {{ productID }}</li>
       </ul>
       <ul class="all-product-container">
         <li v-for="product in productList" :key="product.id">
@@ -75,7 +75,7 @@
         <div v-if="product.id == productID">
           <ul class="product">
             <li class="product-text"><strong>Edit Product</strong></li>
-            <li>Edit the ProductName: {{ product.name }}</li>
+            <li class='create-text'>Edit the ProductName: {{ product.name }}</li>
           </ul>
 
           <form class="new-product-form" @submit.prevent="onSubmit(product)" autocomplete="off">
@@ -156,7 +156,7 @@
 <script lang="ts">
 
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Product, cardNetworkInfo, cardNetworkLogos, jsonData } from '@/ProductTemplates/ProductType'
+import { Product, cardNetworkLogos, jsonData } from '@/ProductTemplates/ProductType'
 import { aavAlgorithms } from '@/Constants/Constants'
 
 @Component
@@ -295,37 +295,56 @@ export default class ProductDetails extends Vue {
 }
 
 .product {
-  margin: 0px;
-  padding-left: 20px;
+  padding-left: 10px;
   list-style-type: none;
-  background-color: rgb(29, 118, 235);
+  background-color: #4d4ddc;
+  overflow: hidden;
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 0px;
   opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   color: white;
-  height: 150px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.create-text{
+  font-size: 1.2rem;
 }
 
 .product-text {
   color: red;
-  font-family: "Fira Sans", sans-serif;
-  font-size: 25px;
-  padding: 10px 10px 0px 0px;
-  /* padding-left: 20px; */
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 40px;
+  display: block;
 }
 
 .create-product-button {
   float: right;
   color: white;
-  height: 50px;
+  height: 40px;
   background-color: rgb(55, 230, 128);
-  margin-right: 10px;
+  margin-right: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding-right: 20px;
 }
 
 .all-product-container {
   list-style: none;
-  /* background-color: pink; */
   border: 2px solid purple;
   box-shadow: 2px 2px 2px 2px grey;
   padding: 10px;
+  margin-top:auto;
+  margin-bottom: auto;
+  margin-left: 5px;
+  margin-right: 5px;
+  opacity: 0.8;
+  border-radius: 10px;
 }
 
 .basic-info {
@@ -347,8 +366,10 @@ export default class ProductDetails extends Vue {
 
 .new-product-form {
   padding: 20px;
-  margin: 40px;
+  margin-left: 5px;
+  margin-right: 5px;
   border: 2px solid #d8d8d8;
+  border-radius: 10px;
 }
 
 textarea {

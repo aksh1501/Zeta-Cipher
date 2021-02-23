@@ -1,17 +1,17 @@
 <template>
   <div class='dashboard'>
     <div v-if='!showProdForm'>
-      <ul class='product'>
-        <li class='product-text'><strong>Products</strong></li>
-        <li>
+      <div class='product'>
+        <div class='product-text'><strong>Products</strong></div>
+        <div class='create-text'>
+          An overview of all your products available in Authentication Centre
+        </div>
+        <div>
           <button @click='toggleShowForm' class='create-product-button'>
             +Create Product
           </button>
-        </li>
-        <li>
-          An overview of all your products available in Authentication Centre
-        </li>
-      </ul>
+        </div>
+      </div>
       <ul class='all-product-container'>
         <li
           v-for='product in productList'
@@ -25,15 +25,14 @@
     <div v-if='showProdForm'>
       <ul class='product'>
         <li class='product-text'><strong>Create Product</strong></li>
-        <li>Create a new Product:</li>
+        <li class='create-text'>Create a new Product:</li>
       </ul>
 
-      <div>
-        <h2>Basic Information</h2>
-        <h3>Enter the Basic Details about your product</h3>
-      </div>
-
       <form class='new-product-form' @submit.prevent='onSubmit' autocomplete="off">
+        <div>
+          <h2>Basic Information</h2>
+          <h3>Enter the Basic Details about your product</h3>
+        </div>
         <div class='error' v-if='errors.length'>
           <b>Please correct the following error(s):</b>
           <ul>
@@ -117,7 +116,7 @@
 <script lang="ts">
 
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Product, cardNetworkInfo, cardNetworkLogos, jsonData } from '@/ProductTemplates/ProductType'
+import { Product, cardNetworkLogos, jsonData } from '@/ProductTemplates/ProductType'
 import { aavAlgorithms } from '@/Constants/Constants'
 
 @Component
@@ -195,12 +194,12 @@ export default class Dashboard extends Vue {
           'style',
           'background-color:' +
           backgrndUrl +
-            '; height : 150px;'
+            '; height : 150px;display:flex;justify-content:space-around;border-top-right-radius:10px;border-top-left-radius:10px;'
         )
         li.append(div)
         div.append(enclosingDiv)
         const img = document.createElement('img')
-        img.style = 'position: relative; width:150px; float : left;'
+        img.style = 'width:auto;height:80px;padding:10px;'
         img.src = URL.createObjectURL(data)
         enclosingDiv.append(img)
         div.append(h1)
@@ -301,21 +300,32 @@ export default class Dashboard extends Vue {
 }
 
 .product {
-  padding-left: 20px;
+  padding-left: 10px;
   list-style-type: none;
-  background-color: rgb(29, 118, 235);
+  background-color: #4d4ddc;
+  overflow: hidden;
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 0px;
   opacity: 0.7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   color: white;
-  height: 100px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 .product-text {
   color: red;
   font-family: 'Fira Sans', sans-serif;
-  font-size: 30px;
-  padding: 10px 20px 0px 0px;
-  margin: 10px;
-  /* padding-left: 20px; */
+  font-size: 40px;
+  display: block;
+}
+
+.create-text{
+  font-size: 1.2rem;
 }
 
 .create-product-button {
@@ -323,20 +333,22 @@ export default class Dashboard extends Vue {
   color: white;
   height: 40px;
   background-color: rgb(55, 230, 128);
-  margin-right: 10px;
+  padding-right: 20px;
+  margin-right: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .product-container {
   height: 400px;
-  /* text-align: left; */
-  margin-bottom: 20px;
+  margin: 30px;
   margin-top: 5px;
   cursor: pointer;
   width: 400px;
-  /* border:1px solid lightgrey; */
   z-index: 4;
-  box-shadow: 2px 2px 2px 2px grey;
   background-color: white;
+  border-radius: 10px;
+  border: 2px solid black;
 }
 
 .product-container:hover {
@@ -346,11 +358,18 @@ export default class Dashboard extends Vue {
 .all-product-container {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   list-style: none;
-  /* background-color: rgb(179, 37, 162); */
+  margin-top:0px;
+  padding: 20px;
+  align-content: space-around;
+  border-radius: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+  opacity: 0.8;
+  margin-left: 5px;
+  margin-right: 5px;
   box-shadow: 2px 2px 2px 2px grey;
-  background-color: purple;
 }
 
 .product-container-div {
@@ -362,8 +381,10 @@ export default class Dashboard extends Vue {
 
 .new-product-form {
   padding: 20px;
-  margin: 40px;
+  margin-left: 5px;
+  margin-right: 5px;
   border: 2px solid #d8d8d8;
+  border-radius: 10px;
 }
 
 textarea {
@@ -380,4 +401,5 @@ input {
   margin: 10px;
   padding: 10px;
 }
+
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div>
     <div>
-    <ul class='heading'>
-        <li>
+    <div class='heading'>
+        <span>
           <img class='logo' :src='logoImg' />
-        </li>
-        <li class='page'>{{ pageInfo }}</li>
-      </ul>
+        </span>
+        <span class='pageInfo'>{{ pageInfo }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -31,15 +31,13 @@ export default class Header extends Vue {
 
 .heading {
   color: white;
-  background-color: red;
-  opacity: 0.7;
-  list-style-type: none;
-  margin: 0px 0px 10px 0px;
-  height:100px;
+  background-color: black;
+  opacity: 0.8;
+  padding-left: 10px;
 }
 
-.page {
-  color: black;
+.pageInfo {
+  color: white;
   font-family: 'Nunito Sans', sans-serif;
   font-size: '4 rem';
 }
