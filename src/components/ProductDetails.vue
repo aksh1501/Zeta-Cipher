@@ -155,6 +155,9 @@ export default class ProductDetails extends Vue {
   @Prop() showProdForm!: boolean
   @Prop() toggleShowForm!: Function
   @Prop() productInfo!: jsonData
+  @Prop() productList!: Array<Product>
+  @Prop() imageMap!: cardNetworkLogos
+  @Prop() cards!: Array<string>
   errors=Array<string>()
   productID=this.$route.params.Pid
   prodCount=0
@@ -172,18 +175,6 @@ export default class ProductDetails extends Vue {
     description: '',
     version: '',
     authPlans: ['swipe_to_pay', 'super_pin']
-  }
-
-  get productList (): Array<Product> {
-    return this.productInfo.products
-  }
-
-  get imageMap (): cardNetworkLogos {
-    return this.productInfo.cardNetworkLogos
-  }
-
-  get cards (): Array<string> {
-    return Object.keys(this.imageMap)
   }
 
   onSubmit () {

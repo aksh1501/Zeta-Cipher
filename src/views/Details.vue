@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header />
-    <ProductDetails :showProdForm="showProdForm" :toggleShowForm="toggleShowForm" :productInfo="productInfo"/>
+    <ProductDetails :showProdForm="showProdForm" :toggleShowForm="toggleShowForm" :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards"/>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import ProductDetails from '@/components/ProductDetails.vue' // @ is an alias to /src
 import Header from '@/components/Header.vue'
-import { Product, cardNetworkInfo, cardNetworkLogos, jsonData } from '@/ProductTemplates/ProductType'
+import { Product, cardNetworkLogos, jsonData } from '@/ProductTemplates/ProductType'
 
 @Component({
   components: {
@@ -35,6 +35,18 @@ export default class Details extends Vue {
       )
       return this.productFromJson
     }
+  }
+
+  get productList (): Array<Product> {
+    return this.productInfo.products
+  }
+
+  get imageMap (): cardNetworkLogos {
+    return this.productInfo.cardNetworkLogos
+  }
+
+  get cards (): Array<string> {
+    return Object.keys(this.imageMap)
   }
 }
 </script>

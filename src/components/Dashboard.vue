@@ -125,6 +125,9 @@ export default class Dashboard extends Vue {
   @Prop() showProdForm!: boolean
   @Prop() toggleShowForm!: Function
   @Prop() productInfo!: jsonData
+  @Prop() productList!: Array<Product>
+  @Prop() imageMap!: cardNetworkLogos
+  @Prop() cards!: Array<string>
   errors=Array<string>()
   prodCount=0
   aavAlgos=aavAlgorithms
@@ -141,18 +144,6 @@ export default class Dashboard extends Vue {
     description: '',
     version: '',
     authPlans: ['swipe_to_pay', 'super_pin']
-  }
-
-  get productList (): Array<Product> {
-    return this.productInfo.products
-  }
-
-  get imageMap (): cardNetworkLogos {
-    return this.productInfo.cardNetworkLogos
-  }
-
-  get cards (): Array<string> {
-    return Object.keys(this.imageMap)
   }
 
   createImage (product: Product): void {
@@ -200,7 +191,7 @@ export default class Dashboard extends Vue {
         li.append(div)
         div.append(enclosingDiv)
         const img = document.createElement('img')
-        img.style = 'width:120px;height:80px;padding:10px;'
+        img.style = 'width:150px;height:80px;padding:10px;'
         img.src = URL.createObjectURL(data)
         enclosingDiv.append(img)
         div.append(h1)
@@ -276,7 +267,7 @@ export default class Dashboard extends Vue {
     location.reload()
   }
 
-  handleClick (prodID: number) {
+  handleClick (prodID: string) {
     this.$router.push({ name: 'details', params: { Pid: prodID } })
   }
 

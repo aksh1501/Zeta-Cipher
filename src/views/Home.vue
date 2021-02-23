@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header/>
-    <Dashboard :showProdForm="showProdForm" :toggleShowForm="toggleShowForm" :productInfo="productInfo"/>
+    <Dashboard :showProdForm="showProdForm" :toggleShowForm="toggleShowForm" :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards"/>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Dashboard from '@/components/Dashboard.vue' // @ is an alias to /src
 import Header from '@/components/Header.vue'
-import { jsonData } from '@/ProductTemplates/ProductType'
+import { jsonData, Product, cardNetworkLogos } from '@/ProductTemplates/ProductType'
 
 @Component({
   components: {
@@ -36,6 +36,18 @@ export default class Home extends Vue {
       )
       return this.productFromJson
     }
+  }
+
+  get productList (): Array<Product> {
+    return this.productInfo.products
+  }
+
+  get imageMap (): cardNetworkLogos {
+    return this.productInfo.cardNetworkLogos
+  }
+
+  get cards (): Array<string> {
+    return Object.keys(this.imageMap)
   }
 }
 
