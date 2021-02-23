@@ -400,7 +400,7 @@ textarea {
   width: 450px;
   height: 200px;
 }
-input {
+input, select {
   width: 450px;
 }
 
