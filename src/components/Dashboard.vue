@@ -17,8 +17,16 @@
           v-for='product in productList'
           :key='product.name'
           :id='product.name' :data-product-id="product.id"
-          class='product-container' @click="handleClick(product.id)"
-        ></li>
+          class='product-container' @click="handleClick(product.id)">
+          <div>
+              <div :style="getBackground(product)">
+                <img :src="getImage(product)" class="image-style"/>
+              </div>
+              <h2 class="product-information">Name: {{product.name}}</h2>
+              <h4 class="product-id-style">ID: {{product.id}}</h4>
+              <h4 class="product-information">bin-{{product.bin}}</h4>
+          </div>
+        </li>
       </ul>
     </div>
 
@@ -146,59 +154,40 @@ export default class Dashboard extends Vue {
     authPlans: ['swipe_to_pay', 'super_pin']
   }
 
-  createImage (product: Product): void {
+  getBackground (product: Product) {
     const card = product.cardNetwork
-    let url = ''
-    let backgrndUrl = ''
+    let backgrnd = ''
     if (card === 'amex') {
-      url = this.imageMap.amex.logoURL
-      backgrndUrl = this.imageMap.amex.logoBgColor
+      backgrnd = this.imageMap.amex.logoBgColor
     } else if (card === 'visa') {
-      url = this.imageMap.visa.logoURL
-      backgrndUrl = this.imageMap.visa.logoBgColor
+      backgrnd = this.imageMap.visa.logoBgColor
     } else if (card === 'mastercard') {
-      url = this.imageMap.mastercard.logoURL
-      backgrndUrl = this.imageMap.mastercard.logoBgColor
+      backgrnd = this.imageMap.mastercard.logoBgColor
     } else if (card === 'rupay') {
-      url = this.imageMap.rupay.logoURL
-      backgrndUrl = this.imageMap.rupay.logoBgColor
+      backgrnd = this.imageMap.rupay.logoBgColor
     } else if (card === 'maestro') {
-      url = this.imageMap.maestro.logoURL
-      backgrndUrl = this.imageMap.maestro.logoBgColor
+      backgrnd = this.imageMap.maestro.logoBgColor
     }
 
-    fetch(url).then(response => {
-      response.blob().then(data => {
-        const li = document.getElementById(product.name)
-        const div = document.createElement('div')
-        const enclosingDiv = document.createElement('div')
-        const h1 = document.createElement('h2')
-        const h2 = document.createElement('h4')
-        const h3 = document.createElement('h4')
-        h2.setAttribute('style', 'background-color:lightgrey; width:120px;padding:5px;')
-        h1.setAttribute('style', 'padding:5px;')
-        h3.setAttribute('style', 'padding:5px;')
-        h1.innerText = 'Name: ' + product.name
-        h2.innerText = 'ID:' + product.id
-        h3.innerText = 'Bin-' + product.bin
-        div.setAttribute('class', 'product-container-div')
-        enclosingDiv.setAttribute(
-          'style',
-          'background-color:' +
-          backgrndUrl +
-            '; height : 100px;display:flex;justify-content:flex-start;align-items: center;border-top-right-radius:8px;border-top-left-radius:8px;'
-        )
-        li.append(div)
-        div.append(enclosingDiv)
-        const img = document.createElement('img')
-        img.style = 'width:150px;height:80px;padding:10px;'
-        img.src = URL.createObjectURL(data)
-        enclosingDiv.append(img)
-        div.append(h1)
-        div.append(h2)
-        div.append(h3)
-      })
-    })
+    return { backgroundColor: backgrnd, height: '100px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', borderTopRightRadius: '8px', borderTopLeftRadius: '8px' }
+  }
+
+  getImage (product: Product) {
+    const card = product.cardNetwork
+    let url = ''
+    if (card === 'amex') {
+      url = this.imageMap.amex.logoURL
+    } else if (card === 'visa') {
+      url = this.imageMap.visa.logoURL
+    } else if (card === 'mastercard') {
+      url = this.imageMap.mastercard.logoURL
+    } else if (card === 'rupay') {
+      url = this.imageMap.rupay.logoURL
+    } else if (card === 'maestro') {
+      url = this.imageMap.maestro.logoURL
+    }
+
+    return url
   }
 
   onSubmit () {
@@ -273,9 +262,6 @@ export default class Dashboard extends Vue {
 
   mounted () {
     this.prodCount = this.productList.length
-    for (let iter = 0; iter < this.productList.length; iter++) {
-      this.createImage(this.productList[iter])
-    }
   }
 }
 </script>
@@ -310,6 +296,16 @@ export default class Dashboard extends Vue {
   padding: 20px;
 }
 
+.product-information{
+  padding: 5px;
+}
+
+.product-id-style{
+  background-color: lightgrey;
+  width: 120px;
+  padding: 5px;
+}
+
 .product-text {
   color: white;
   font-family: 'Fira Sans', sans-serif;
@@ -334,7 +330,7 @@ export default class Dashboard extends Vue {
 }
 
 .product-container {
-  height: 320px;
+  height: 300px;
   margin: 30px;
   margin-top: 5px;
   cursor: pointer;
@@ -366,11 +362,10 @@ export default class Dashboard extends Vue {
   box-shadow: 2px 2px 2px 2px grey;
 }
 
-.product-container-div {
-  position: relative;
-  display: inline-block;
-  height: 400px;
-  margin-bottom: 20px;
+.image-style{
+    width: 170px;
+    height: 100px;
+    padding: 10px;
 }
 
 .new-product-form {
