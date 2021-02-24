@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Header/>
-    <Dashboard :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards"/>
+    <Header />
+    <EmptyState v-if="productFromJson.products.length==0" :productFromJson="productFromJson" />
+    <Dashboard v-if="productFromJson.products.length!==0" :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards"/>
   </div>
 </template>
 
@@ -9,12 +10,14 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Dashboard from '@/components/Dashboard.vue' // @ is an alias to /src
 import Header from '@/components/Header.vue'
+import EmptyState from '@/components/EmptyState.vue'
 import { jsonData, Product, cardNetworkLogos } from '@/ProductTemplates/ProductType'
 
 @Component({
   components: {
     Dashboard,
-    Header
+    Header,
+    EmptyState
   }
 })
 export default class Home extends Vue {

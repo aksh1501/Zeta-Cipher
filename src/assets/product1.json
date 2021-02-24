@@ -1,0 +1,25 @@
+{
+    "products": [],
+    "cardNetworkLogos": {
+        "amex": {
+            "logoURL": "https://s3-ap-southeast-1.amazonaws.com/cipher.zeta/card-network-logos/amex-white.png",
+            "logoBgColor": "rgb(0, 38, 99)"
+        },
+        "visa": {
+            "logoURL": "https://s3-ap-southeast-1.amazonaws.com/cipher.zeta/card-network-logos/visa-white.png",
+            "logoBgColor": "rgb(21, 25, 90)"
+        },
+        "mastercard": {
+            "logoURL": "https://s3-ap-southeast-1.amazonaws.com/cipher.zeta/card-network-logos/maastercard%403x.png",
+            "logoBgColor": "rgb(0, 0, 0)"
+        },
+        "rupay": {
+            "logoURL": "https://s3-ap-southeast-1.amazonaws.com/cipher.zeta/card-network-logos/rupay-white.png",
+            "logoBgColor": "rgb(67, 66, 68)"
+        },
+        "maestro": {
+            "logoURL": "https://s3-ap-southeast-1.amazonaws.com/cipher.zeta/card-network-logos/maestro%403x.png",
+            "logoBgColor": "rgb(35, 31, 32)"
+        }
+    }
+}
