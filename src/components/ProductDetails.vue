@@ -46,7 +46,7 @@
             <br />
             <br />
             <span class="product-attribute">Card Network : </span>
-            <img :src="getImage(product)" :style="getBackground(product)"/>
+            <img :src="getImage(product)" :style="{ backgroundColor: getBackground(product)}" class="image-backgrnd"/>
             <span class="product-info">{{ product.cardNetwork }}</span>
             <br />
             <br />
@@ -187,7 +187,6 @@ export default class ProductDetails extends Vue {
       this.newProduct.description &&
       this.newProduct.version
     ) {
-      // console.log('hi if')
       this.prodCount++
       this.updateProductList(this.newProduct)
       this.newProduct = {
@@ -229,7 +228,7 @@ export default class ProductDetails extends Vue {
 
   updateProductList (product: Product): void{
     if (localStorage.getItem('storedProducts')) {
-      const productData = JSON.parse(localStorage.getItem('storedProducts'))
+      const productData = JSON.parse(localStorage.getItem('storedProducts')!)
       console.log(productData.products)
       // productData.products.push(product);
       for (let iter = 0; iter < productData.products.length; iter++) {
@@ -261,39 +260,11 @@ export default class ProductDetails extends Vue {
   }
 
   getImage (product: Product) {
-    const card = product.cardNetwork
-    let url = ''
-    if (card === 'amex') {
-      url = this.imageMap.amex.logoURL
-    } else if (card === 'visa') {
-      url = this.imageMap.visa.logoURL
-    } else if (card === 'mastercard') {
-      url = this.imageMap.mastercard.logoURL
-    } else if (card === 'rupay') {
-      url = this.imageMap.rupay.logoURL
-    } else if (card === 'maestro') {
-      url = this.imageMap.maestro.logoURL
-    }
-
-    return url
+    return this.imageMap[product.cardNetwork].logoURL
   }
 
   getBackground (product: Product) {
-    const card = product.cardNetwork
-    let backgrnd = ''
-    if (card === 'amex') {
-      backgrnd = this.imageMap.amex.logoBgColor
-    } else if (card === 'visa') {
-      backgrnd = this.imageMap.visa.logoBgColor
-    } else if (card === 'mastercard') {
-      backgrnd = this.imageMap.mastercard.logoBgColor
-    } else if (card === 'rupay') {
-      backgrnd = this.imageMap.rupay.logoBgColor
-    } else if (card === 'maestro') {
-      backgrnd = this.imageMap.maestro.logoBgColor
-    }
-
-    return { backgroundColor: backgrnd, width: '60px', height: '60px', borderRadius: '2px', objectFit: 'contain' }
+    return this.imageMap[product.cardNetwork].logoBgColor
   }
 
   mounted () {
@@ -423,6 +394,13 @@ input, select {
 .style-image{
   width: 80px;
   height: 80px;
+  object-fit: contain;
+}
+
+.image-backgrnd{
+  width: 60px;
+  height: 60px;
+  border-radius: 2px;
   object-fit: contain;
 }
 

@@ -27,7 +27,7 @@ export default class Details extends Vue {
 
   get productInfo (): jsonData {
     if (localStorage.getItem('storedProducts')) {
-      return JSON.parse(localStorage.getItem('storedProducts'))
+      return JSON.parse(localStorage.getItem('storedProducts')!)
     } else {
       localStorage.setItem(
         'storedProducts',

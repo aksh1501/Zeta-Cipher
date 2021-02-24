@@ -16,15 +16,17 @@
         <li
           v-for='product in productList'
           :key='product.name'
-          :id='product.name' :data-product-id="product.id"
+          :id='product.name'
           class='product-container' @click="handleClick(product.id)">
           <div>
-              <div :style="getBackground(product)">
+              <div :style="{backgroundColor: getBackground(product)}" class="card-bgcolor">
                 <img :src="getImage(product)" class="image-style"/>
               </div>
+              <div class="card-content">
               <h2 class="product-information">Name: {{product.name}}</h2>
               <h4 class="product-id-style">ID: {{product.id}}</h4>
               <h4 class="product-information">bin-{{product.bin}}</h4>
+              </div>
           </div>
         </li>
       </ul>
@@ -155,39 +157,11 @@ export default class Dashboard extends Vue {
   }
 
   getBackground (product: Product) {
-    const card = product.cardNetwork
-    let backgrnd = ''
-    if (card === 'amex') {
-      backgrnd = this.imageMap.amex.logoBgColor
-    } else if (card === 'visa') {
-      backgrnd = this.imageMap.visa.logoBgColor
-    } else if (card === 'mastercard') {
-      backgrnd = this.imageMap.mastercard.logoBgColor
-    } else if (card === 'rupay') {
-      backgrnd = this.imageMap.rupay.logoBgColor
-    } else if (card === 'maestro') {
-      backgrnd = this.imageMap.maestro.logoBgColor
-    }
-
-    return { backgroundColor: backgrnd, height: '100px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', borderTopRightRadius: '8px', borderTopLeftRadius: '8px' }
+    return this.imageMap[product.cardNetwork].logoBgColor
   }
 
   getImage (product: Product) {
-    const card = product.cardNetwork
-    let url = ''
-    if (card === 'amex') {
-      url = this.imageMap.amex.logoURL
-    } else if (card === 'visa') {
-      url = this.imageMap.visa.logoURL
-    } else if (card === 'mastercard') {
-      url = this.imageMap.mastercard.logoURL
-    } else if (card === 'rupay') {
-      url = this.imageMap.rupay.logoURL
-    } else if (card === 'maestro') {
-      url = this.imageMap.maestro.logoURL
-    }
-
-    return url
+    return this.imageMap[product.cardNetwork].logoURL
   }
 
   onSubmit () {
@@ -241,7 +215,7 @@ export default class Dashboard extends Vue {
 
   updateProductList (product: Product) {
     if (localStorage.getItem('storedProducts')) {
-      const productData = JSON.parse(localStorage.getItem('storedProducts'))
+      const productData = JSON.parse(localStorage.getItem('storedProducts')!)
       console.log(productData.products)
       productData.products.push(product)
       localStorage.setItem('storedProducts', JSON.stringify(productData))
@@ -297,13 +271,15 @@ export default class Dashboard extends Vue {
 }
 
 .product-information{
-  padding: 5px;
+  padding: 6px 6px 6px 0px;
+  margin: 0;
 }
 
 .product-id-style{
   background-color: lightgrey;
   width: 120px;
-  padding: 5px;
+  padding: 6px;
+  margin: 0;
 }
 
 .product-text {
@@ -330,7 +306,7 @@ export default class Dashboard extends Vue {
 }
 
 .product-container {
-  height: 300px;
+  height: 240px;
   margin: 30px;
   margin-top: 5px;
   cursor: pointer;
@@ -343,6 +319,15 @@ export default class Dashboard extends Vue {
 
 .product-container:hover {
   background-color: rgb(215, 245, 250);
+}
+
+.card-bgcolor{
+  height: 100px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 
 .all-product-container {
@@ -363,9 +348,10 @@ export default class Dashboard extends Vue {
 }
 
 .image-style{
-    width: 170px;
-    height: 100px;
-    padding: 10px;
+    width: 120px;
+    height: 110px;
+    padding: 10px 10px 10px 2px;
+    object-fit: contain;
 }
 
 .new-product-form {
@@ -393,6 +379,10 @@ input {
 
 input, select, textarea{
   width: 450px;
+}
+
+.card-content{
+  padding: 10px;
 }
 
 </style>
