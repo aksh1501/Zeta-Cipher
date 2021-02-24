@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header />
-    <ProductDetails :showProdForm="showProdForm" :toggleShowForm="toggleShowForm" :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards"/>
+    <ProductDetails  :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards"/>
   </div>
 </template>
 
@@ -18,12 +18,7 @@ import { Product, cardNetworkLogos, jsonData } from '@/ProductTemplates/ProductT
   }
 })
 export default class Details extends Vue {
-  showProdForm=false
   productFromJson: jsonData=require('@/assets/product.json')
-
-  toggleShowForm () {
-    this.showProdForm = !this.showProdForm
-  }
 
   get productInfo (): jsonData {
     if (localStorage.getItem('storedProducts')) {

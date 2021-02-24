@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!showProdForm">
+    <div>
       <div class="product">
         <div
           v-for="product in productList"
@@ -61,87 +61,6 @@
         <button @click='returnToHome' class='back-button'>Back To Home</button>
       </div>
     </div>
-
-    <div v-if="showProdForm">
-      <div v-for="product in productList" :key="product.id">
-        <div v-if="product.id == productID">
-          <div class="product-form">
-            <div class="product-text"><strong class="product-header">Edit Product</strong></div>
-            <div class='create-text'>Edit the ProductName: {{ product.name }}</div>
-          </div>
-
-          <form class="new-product-form" @submit.prevent="onSubmit(product)" autocomplete="off">
-            <div class="error" v-if="errors.length">
-              <strong>Please correct the following error(s):</strong>
-              <ul>
-                <li v-for="(error, idx) in errors" :key="idx">{{ error }}</li>
-              </ul>
-            </div>
-
-            <p>
-              <label for="name">Product Name:</label><br />
-              <input id="name" v-model="newProduct.name" />
-            </p>
-
-            <p>
-              <label for="description">Description:</label><br />
-              <textarea
-                id="description"
-                v-model="newProduct.description"
-              ></textarea>
-            </p>
-
-            <p>
-              <label for="keyBundleId">Key Bundle ID</label><br />
-              <select id="keyBundleId">
-                <option value="Select Key Bundle ID">
-                  Select Key Bundle ID
-                </option>
-              </select>
-            </p>
-
-            <p>
-              <label for="cardNetwork">Card Network</label><br />
-              <select id="cardNetwork" v-model="newProduct.cardNetwork">
-                <option v-for="(card, idx) in cards" :key="idx" :value="card">
-                  {{ card }}
-                </option>
-              </select>
-            </p>
-
-            <p>
-              <label for="protocol">Protocol Version</label><br />
-              <select id="protocol" v-model="newProduct.version">
-                <option value="threeDSecure_1_0">3D Secure 1.0</option>
-                <option value="threeDSecure_2_0">3D Secure 2.0</option>
-                <option value="threeDSecure_3_0">2D Secure 3.0</option>
-              </select>
-            </p>
-
-            <p>
-              <label for="avvAlgorithm">AVV Algorithm</label><br />
-              <select id="avvAlgorithm" placeholder="Select AVV algorithm">
-                <option v-for="(algos,idx) in aavAlgos" :key="idx" :value="algos">{{algos}}</option>
-              </select>
-            </p>
-
-            <p>
-              <label for="binNo">Bin No.</label> <br />
-              <input
-                id="binNo"
-                v-model="newProduct.bin"
-                :placeholder="product.bin"
-              />
-            </p>
-
-            <p>
-              <input class="form-buttons" type="submit" value="Submit" />
-              <button class="form-buttons" @click="onCancel">Cancel</button>
-            </p>
-          </form>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -153,8 +72,6 @@ import { aavAlgorithms } from '@/Constants/Constants'
 
 @Component
 export default class ProductDetails extends Vue {
-  @Prop() showProdForm!: boolean
-  @Prop() toggleShowForm!: Function
   @Prop() productInfo!: jsonData
   @Prop() productList!: Array<Product>
   @Prop() imageMap!: cardNetworkLogos
@@ -178,77 +95,6 @@ export default class ProductDetails extends Vue {
     authPlans: ['swipe_to_pay', 'super_pin']
   }
 
-  onSubmit () {
-    if (
-      this.newProduct.name &&
-      this.newProduct.bin &&
-      this.newProduct.id &&
-      this.newProduct.cardNetwork &&
-      this.newProduct.description &&
-      this.newProduct.version
-    ) {
-      this.prodCount++
-      this.updateProductList(this.newProduct)
-      this.newProduct = {
-        id: '',
-        name: '',
-        bin: 0,
-        cardNetwork: '',
-        config: {
-          connectorURL:
-            'https://ciphertest.amex-cipher.gw.zetapay.in//amexcipher/vereq'
-        },
-        description: '',
-        version: '',
-        authPlans: ['swipe_to_pay', 'super_pin']
-      }
-
-      this.toggleShowForm()
-    } else {
-      if (!this.newProduct.name) {
-        this.errors.push('Product Name required.')
-      }
-      if (!this.newProduct.bin) {
-        this.errors.push('Product Bin required.')
-      }
-      if (!this.newProduct.id) {
-        this.errors.push('Product Id required.')
-      }
-      if (!this.newProduct.cardNetwork) {
-        this.errors.push('Product CardNetwork required.')
-      }
-      if (!this.newProduct.description) {
-        this.errors.push('Product Description required.')
-      }
-      if (!this.newProduct.version) {
-        this.errors.push('Product version required.')
-      }
-    }
-  }
-
-  updateProductList (product: Product): void{
-    if (localStorage.getItem('storedProducts')) {
-      const productData = JSON.parse(localStorage.getItem('storedProducts')!)
-      console.log(productData.products)
-      // productData.products.push(product);
-      for (let iter = 0; iter < productData.products.length; iter++) {
-        if (productData.products[iter].id === product.id) {
-          productData.products[iter] = product
-        }
-      }
-
-      localStorage.setItem('storedProducts', JSON.stringify(productData))
-    } else {
-      console.log('no object in local storage')
-    }
-    location.reload()
-  }
-
-  onCancel () {
-    this.toggleShowForm()
-    location.reload()
-  }
-
   versionDisplay (version: string): string {
     const versionArray = version.split('_')
     return versionArray.join('.')
@@ -265,6 +111,10 @@ export default class ProductDetails extends Vue {
 
   getBackground (product: Product) {
     return this.imageMap[product.cardNetwork].logoBgColor
+  }
+
+  toggleShowForm () {
+    this.$router.push({ name: 'edit', params: { Pid: this.productID } })
   }
 
   mounted () {

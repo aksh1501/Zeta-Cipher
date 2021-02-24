@@ -1,23 +1,23 @@
 <template>
-  <div>
-    <Header/>
-    <Dashboard :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards"/>
+  <div class="home">
+    <Header />
+    <CreateProduct :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import Dashboard from '@/components/Dashboard.vue' // @ is an alias to /src
+import CreateProduct from '@/components/CreateProduct.vue'
 import Header from '@/components/Header.vue'
-import { jsonData, Product, cardNetworkLogos } from '@/ProductTemplates/ProductType'
+import { Product, cardNetworkLogos, jsonData } from '@/ProductTemplates/ProductType'
 
 @Component({
   components: {
-    Dashboard,
+    CreateProduct,
     Header
   }
 })
-export default class Home extends Vue {
+export default class CreateForm extends Vue {
   productFromJson: jsonData=require('@/assets/product.json')
 
   get productInfo (): jsonData {
@@ -44,5 +44,4 @@ export default class Home extends Vue {
     return Object.keys(this.imageMap)
   }
 }
-
 </script>
