@@ -64,14 +64,14 @@
 
         <p>
           <label for='binNo'>Bin No.</label> <br />
-          <input id='binNo' v-model='newProduct.bin' />
+          <input id='binNo' placeholder='Enter Bin Number' v-model='newProduct.bin' />
         </p>
 
         <p>
           <label for='prodId'>Product ID.</label><br />
           <input
             id='prodId'
-            placeholder='Enter Product ID'
+            :placeholder='getId'
             v-model='newProduct.id'
           />
         </p>
@@ -97,6 +97,7 @@ export default class CreateProduct extends Vue {
   @Prop() productList!: Array<Product>
   @Prop() imageMap!: cardNetworkLogos
   @Prop() cards!: Array<string>
+  @Prop() getId!: string
   errors=Array<string>()
   prodCount=0
   aavAlgos=aavAlgorithms
@@ -149,6 +150,7 @@ export default class CreateProduct extends Vue {
       this.$router.push({ name: 'home' })
       location.reload()
     } else {
+      this.errors = Array<string>()
       if (!this.newProduct.name) {
         this.errors.push('Product Name required.')
       }

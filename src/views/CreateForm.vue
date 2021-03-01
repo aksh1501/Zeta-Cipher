@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Header />
-    <CreateProduct :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards"/>
+    <CreateProduct :productInfo="productInfo" :productList="productList" :imageMap="imageMap" :cards="cards" :getId="getId"/>
   </div>
 </template>
 
@@ -42,6 +42,10 @@ export default class CreateForm extends Vue {
 
   get cards (): Array<string> {
     return Object.keys(this.imageMap)
+  }
+
+  get getId (): string {
+    return 'PRO0000' + (this.productList.length + 1)
   }
 }
 </script>
