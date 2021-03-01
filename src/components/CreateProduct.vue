@@ -38,13 +38,6 @@
         </p>
 
         <p>
-          <label for='keyBundleId'>Key Bundle ID</label><br />
-          <select id='keyBundleId'>
-            <option value='Select Key Bundle ID'>Select Key Bundle ID</option>
-          </select>
-        </p>
-
-        <p>
           <label for='cardNetwork'>Card Network</label><br />
           <select id='cardNetwork' v-model='newProduct.cardNetwork'>
             <option v-for='(card, idx) in cards' :key='idx' :value='card'>
@@ -123,13 +116,19 @@ export default class CreateProduct extends Vue {
   }
 
   onSubmit () {
+    let uniqueIdFlag = 1
+    for (let iter = 0; iter < this.productList.length; iter++) {
+      if (this.productList[iter].id === this.newProduct.id) {
+        uniqueIdFlag = 0
+      }
+    }
     if (
       this.newProduct.name &&
       this.newProduct.bin &&
       this.newProduct.id &&
       this.newProduct.cardNetwork &&
       this.newProduct.description &&
-      this.newProduct.version
+      this.newProduct.version && uniqueIdFlag
     ) {
       this.prodCount++
       this.updateProductList(this.newProduct)
@@ -167,6 +166,9 @@ export default class CreateProduct extends Vue {
       }
       if (!this.newProduct.version) {
         this.errors.push('Product version required.')
+      }
+      if (!uniqueIdFlag) {
+        this.errors.push('Product ID should be unique for each product.')
       }
     }
   }

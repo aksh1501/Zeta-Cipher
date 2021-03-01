@@ -30,15 +30,6 @@
             </p>
 
             <p>
-              <label for="keyBundleId">Key Bundle ID</label><br />
-              <select id="keyBundleId">
-                <option value="Select Key Bundle ID">
-                  Select Key Bundle ID
-                </option>
-              </select>
-            </p>
-
-            <p>
               <label for="cardNetwork">Card Network</label><br />
               <select id="cardNetwork" v-model="newProduct.cardNetwork">
                 <option v-for="(card, idx) in cards" :key="idx" :value="card">
