@@ -84,7 +84,7 @@ export default class ProductDetails extends Vue {
   newProduct: Product={
     id: '',
     name: '',
-    bin: 0,
+    bin: '',
     cardNetwork: '',
     config: {
       connectorURL:
