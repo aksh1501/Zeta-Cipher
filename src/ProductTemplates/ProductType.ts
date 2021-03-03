@@ -1,7 +1,7 @@
 export type Product= {
   id: string
   name: string
-  bin: number
+  bin: string
   cardNetwork: string
   config: { connectorURL: string }
   description: string
@@ -23,7 +23,7 @@ export type cardNetworkLogos = {
 };
 
 export type jsonData = {
-  products:Product[]
+  products:Array<Product>
   cardNetworkLogos:cardNetworkLogos
 };
 

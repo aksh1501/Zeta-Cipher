@@ -23,14 +23,14 @@
     opacity: 0;
   }
   50%{
-    opacity: 0.4;
+    opacity: 0.6;
   }
   100%{
     opacity: 1;
   }
 }
 .moveInUp-leave-active{
-  animation: moveInUp .3s ease-in;
+  animation: moveInUp .2s ease-in;
 }
 @keyframes moveInUp{
  0%{

@@ -105,7 +105,7 @@ export default class CreateProduct extends Vue {
   newProduct: Product={
     id: '',
     name: '',
-    bin: 0,
+    bin: '',
     cardNetwork: '',
     config: {
       connectorURL:
@@ -136,7 +136,7 @@ export default class CreateProduct extends Vue {
       this.newProduct = {
         id: '',
         name: '',
-        bin: 0,
+        bin: '',
         cardNetwork: '',
         config: {
           connectorURL:
