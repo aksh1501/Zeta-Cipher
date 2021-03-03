@@ -50,19 +50,6 @@ export default class Dashboard extends Vue {
   prodCount=0
   aavAlgos=aavAlgorithms
   productFromJson: jsonData=require('@/assets/product.json')
-  newProduct: Product={
-    id: '',
-    name: '',
-    bin: 0,
-    cardNetwork: '',
-    config: {
-      connectorURL:
-        'https://ciphertest.amex-cipher.gw.zetapay.in//amexcipher/vereq'
-    },
-    description: '',
-    version: '',
-    authPlans: ['swipe_to_pay', 'super_pin']
-  }
 
   getBackground (product: Product) {
     return this.imageMap[product.cardNetwork].logoBgColor
